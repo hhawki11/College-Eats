@@ -1,10 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import Spacer from '../../components/Spacer'
 
-const DefaultLocationSettingScreen = ({ navigation }) => {
+const TutorialScreen3 = ({ navigation }) => {
     return (
         <View style={styles.view}>
-            <Text>DefaultLocationSettingScreen</Text>
+            <Text>
+                TutorialScreen3
+            </Text>
         </View>
     )
 }
@@ -17,4 +20,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DefaultLocationSettingScreen
+export default TutorialScreen3

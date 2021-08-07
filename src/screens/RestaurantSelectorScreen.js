@@ -1,22 +1,22 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import Spacer from '../../components/Spacer'
+import Spacer from '../components/Spacer'
 
-const SettingsScreen = ({ navigation }) => {
+const RestaurantSelectorScreen = ({ navigation }) => {
     return (
         <View style={styles.view}>
-            <Text>SettingsScreen</Text>
+            <Text>
+                RestaurantSelectorScreen
+            </Text>
             <Spacer />
-            <TouchableOpacity onPress={() => navigation.navigate('DefaultLocationSetting')}>
-                <Text>
-                    Go to DefaultLocationSetting
-                </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('SearchResults')}>
+                <Text>Go to SearchResultsScreen</Text>
             </TouchableOpacity>
         </View>
     )
 }
 
-SettingsScreen.navigationOptions = () => {
+RestaurantSelectorScreen.navigationOptions = () => {
     return {
         headerShown: false
     }
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SettingsScreen
+export default RestaurantSelectorScreen

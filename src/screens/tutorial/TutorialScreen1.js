@@ -2,21 +2,21 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Spacer from '../../components/Spacer'
 
-const SettingsScreen = ({ navigation }) => {
+const TutorialScreen1 = ({ navigation }) => {
     return (
         <View style={styles.view}>
-            <Text>SettingsScreen</Text>
+            <Text>Tutorial Screen 1</Text>
             <Spacer />
-            <TouchableOpacity onPress={() => navigation.navigate('DefaultLocationSetting')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Tutorial2')}>
                 <Text>
-                    Go to DefaultLocationSetting
+                    Go to tutorial screen 2
                 </Text>
             </TouchableOpacity>
         </View>
     )
 }
 
-SettingsScreen.navigationOptions = () => {
+TutorialScreen1.navigationOptions = () => {
     return {
         headerShown: false
     }
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SettingsScreen
+export default TutorialScreen1
