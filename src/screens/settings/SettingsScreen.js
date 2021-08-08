@@ -12,6 +12,12 @@ const SettingsScreen = ({ navigation }) => {
                     Go to DefaultLocationSetting
                 </Text>
             </TouchableOpacity>
+            <Spacer />
+            <TouchableOpacity onPress={() => navigation.navigate('TypeRandomizerSetting')}>
+                <Text>
+                    Go to TypeRandomizerSetting
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }
