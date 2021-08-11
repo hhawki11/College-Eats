@@ -25,7 +25,7 @@ const stackNavigator = createStackNavigator({
     'Find a Restaurant': createStackNavigator({
       SearchResults: SearchResultsScreen,
       LocationSelector: LocationSelectorScreen,
-      RestaurantDetails: RestaurantDetailsScreen
+      RestaurantDetails: RestaurantDetailsScreen,
     }),
     'Settings': createStackNavigator({
       Settings: SettingsScreen,
