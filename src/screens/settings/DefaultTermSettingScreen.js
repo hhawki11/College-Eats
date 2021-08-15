@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-const TypeRandomizerSettingScreen = ({ navigation }) => {
+const DefaultTermSettingScreen = ({ navigation }) => {
     return (
         <View style={styles.view}>
-            <Text>TypeRandomizerSettingScreen</Text>
+            <Text>DefaultTermSettingScreen</Text>
         </View>
     )
 }
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TypeRandomizerSettingScreen
+export default DefaultTermSettingScreen

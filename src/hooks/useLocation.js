@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react"
 import yelp from "../api/yelp"
 
-export default () => {
+export default (lim, search, loc) => {
     const [results, setResults] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
 
-    const searchApi = async (searchTerm) => {
+    const searchApi = async (limit, searchTerm, location) => {
         try {
              const response = await yelp.get('/search', {
                 params: {
-                    limit: 50,
+                    limit: limit,
                     term: searchTerm,
-                    location: 'san jose'
+                    location: location
                 }
             })
             setErrorMessage(null)
@@ -23,8 +23,8 @@ export default () => {
 
     
     useEffect(() => {
-        searchApi('pasta')
-    }, [])
+        searchApi(lim, search, loc)
+    })
 
     return [searchApi, results, errorMessage]
 }

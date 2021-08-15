@@ -2,6 +2,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { withNavigation } from 'react-navigation'
+import { Context as LocationContext} from '../context/LocationContext'
 import RestaurantCard from './RestaurantCard'
 
 const RestaurantList = ({ results, navigation }) => {
