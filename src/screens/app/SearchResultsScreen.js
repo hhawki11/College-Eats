@@ -11,7 +11,7 @@ const SearchResultsScreen = ({ navigation }) => {
     const { limit, term, location } = state[0]
     const [loc, setLoc] = useState(location)
     const [searchApi, results, errorMessage] = useLocation(limit, term, location)
-
+    
     return (
         <View style={styles.view}>
             <Text>SearchResultsScreen</Text>
@@ -19,11 +19,8 @@ const SearchResultsScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate('LocationSelector')}>
                 <Text>Go to LocationSelectorScreen</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setLocation('greensboro')}>
-                <Text>Search in NC</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setLocation('san jose')}>
-                <Text>Search in CA</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('NewSearch')}>
+                <Text>Change Search</Text>
             </TouchableOpacity>
             <RestaurantList results={results} />
         </View>

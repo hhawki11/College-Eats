@@ -5,7 +5,7 @@ const RestaurantCard = ({ restaurant }) => {
     return (
         <View style={styles.view}>
             <Text>
-                This is {restaurant.name}
+                {restaurant.name}
             </Text>
             <Image source={{ uri: restaurant.image_url }} style={styles.image} />
         </View>

@@ -15,6 +15,7 @@ import DefaultTermSettingScreen from './src/screens/settings/DefaultTermSettingS
 import RestaurantDetailsScreen from './src/screens/app/RestaurantDetailsScreen'
 import LocationSelectorScreen from './src/screens/app/LocationSelectorScreen'
 import SearchResultsScreen from './src/screens/app/SearchResultsScreen'
+import NewSearchScreen from './src/screens/app/NewSearchScreen'
 
 const stackNavigator = createStackNavigator({
   Welcome: WelcomeScreen,
@@ -28,6 +29,7 @@ const stackNavigator = createStackNavigator({
       SearchResults: SearchResultsScreen,
       LocationSelector: LocationSelectorScreen,
       RestaurantDetails: RestaurantDetailsScreen,
+      NewSearch: NewSearchScreen,
     }),
     'Settings': createStackNavigator({
       Settings: SettingsScreen,
