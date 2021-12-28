@@ -18,7 +18,7 @@ const DefaultTermSettingScreen = ({ navigation }) => {
 
     return (
         <View style={styles.view}>
-            <Text>DefaultTermSettingScreen</Text>
+            <Text>Default Search Term</Text>
             <TextInput
                 style={styles.input}
                 value={newTerm}

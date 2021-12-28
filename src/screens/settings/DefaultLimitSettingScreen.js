@@ -18,7 +18,7 @@ const DefaultLimitSettingScreen = ({ navigation }) => {
 
     return (
         <View style={styles.view}>
-            <Text>DefaultLimitSettingScreen</Text>
+            <Text>Default Number of Results Shown:</Text>
             <TextInput
                 style={styles.input}
                 value={newLimit}

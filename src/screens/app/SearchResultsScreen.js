@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import { Context as LocationContext} from '../../context/LocationContext'
@@ -9,7 +9,6 @@ import useLocation from '../../hooks/useLocation'
 const SearchResultsScreen = ({ navigation }) => {
     const { state, setLocation } = useContext(LocationContext) // limit, location, term
     const { limit, term, location } = state[0]
-    const [loc, setLoc] = useState(location)
     const [searchApi, results, errorMessage] = useLocation(limit, term, location)
     
     return (

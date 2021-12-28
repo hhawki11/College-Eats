@@ -18,7 +18,7 @@ const DefaultLocationSettingScreen = ({ navigation }) => {
 
     return (
         <View style={styles.view}>
-            <Text>DefaultLocationSettingScreen</Text>
+            <Text>Default Search Location</Text>
             <TextInput
                 style={styles.input}
                 value={newLocation}

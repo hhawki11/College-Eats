@@ -7,7 +7,7 @@ export default (lim, search, loc) => {
 
     const searchApi = async (limit, searchTerm, location) => {
         try {
-             const response = await yelp.get('/search', {
+            const response = await yelp.get('/search', {
                 params: {
                     limit: limit,
                     term: searchTerm,
@@ -24,7 +24,7 @@ export default (lim, search, loc) => {
     
     useEffect(() => {
         searchApi(lim, search, loc)
-    })
+    }, [lim, search, loc])
 
     return [searchApi, results, errorMessage]
 }
