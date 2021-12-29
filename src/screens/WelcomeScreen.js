@@ -1,10 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { StyleSheet, Text, Button, View, TouchableOpacity } from 'react-native'
 import { Context as LocationContext} from '../context/LocationContext'
+import { requestForegroundPermissionsAsync } from 'expo-location'
 
 const WelcomeScreen = ({ navigation }) => {
     const { state, setLocation, setDefaultLocation, setLimit, setDefaultLimit, setTerm, setDefaultTerm } = useContext(LocationContext) // limit, location, term
+    const [err, setErr] = useState(null)
+
+    const getPermission = async () => {
+        try {
+            await requestForegroundPermissionsAsync()
+        } catch (e) {
+            setErr(e)
+        }
+    }
+
+    useEffect(() => {
+        getPermission()
+    }, [])
 
     return (
         <View style={styles.view}>

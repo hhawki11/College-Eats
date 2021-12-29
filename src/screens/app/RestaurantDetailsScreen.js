@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Image, Linking } from 'react-native'
+import { View, Text, StyleSheet, Image, Linking, Platform } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import yelp from '../../api/yelp'
+import openMap from 'react-native-open-maps'
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons'
+import * as Location from 'expo-location'
+import { getDistance } from 'geolib'
 
 const RestaurantDetailsScreen = ({ navigation }) => {
     const [restaurant, setRestaurant] = useState(null)
+    const [location, setLocation] = useState(null)
     const [reviews, setReviews] = useState([{user: {}, }])
     const id = navigation.getParam('id')
+
+    const getLocation = async () => {
+        const userLocation = await Location.getCurrentPositionAsync()
+        setLocation(userLocation.coords)
+    }
 
     const getRestaurant = async (id) => {
         const response = await yelp.get(`/${id}`)
@@ -17,10 +27,26 @@ const RestaurantDetailsScreen = ({ navigation }) => {
 
     useEffect(() => {
         getRestaurant(id)
+        getLocation()
     }, [])
 
     if (!restaurant) {
         return null
+    }
+
+    const getStars = (starNum) => {
+        const starArr = []
+        for (var i = 0; i < 5; i++) {
+            if (starNum >= 1) {
+                starArr.push(<FontAwesome key={i} name="star" size={18} color="black" />)
+            } else if (starNum > 0) {
+                starArr.push(<FontAwesome key={i} name="star-half-empty" size={18} color="black" />)
+            } else {
+                starArr.push(<FontAwesome key={i} name="star-o" size={18} color="black" />)
+            }
+            starNum -= 1
+        }
+        return(starArr)
     }
 
     const convertTransactions = (transactions) => {
@@ -49,22 +75,37 @@ const RestaurantDetailsScreen = ({ navigation }) => {
                 }}
             />
             <View style={styles.rows}>
-                <Text style={styles.second}>{restaurant.rating} Stars</Text>
-                <Text style={styles.second}>{restaurant.phone}</Text>
+                <Text style={styles.second} onPress={() => {
+                    Linking.openURL(restaurant.messaging.url)
+                }}>
+                    {getStars(restaurant.rating)}
+                </Text>
+                <Text style={styles.second} onPress={() => {
+                    Linking.openURL(`telprompt:${restaurant.phone}`)
+                }}>
+                    {<FontAwesome key='phone' name="phone" size={26} color="black" />}
+                </Text>
                 <Text style={styles.second}>{restaurant.price}</Text>
             </View>
             <View style={styles.rows}>
-                <Text style={styles.second}>Distance from user</Text>
-                <Text style={styles.second}>{restaurant.coordinates.latitude}          {restaurant.coordinates.longitude}</Text>
+                <Text style={styles.second}>
+                    {location && restaurant ?
+                    (getDistance({ latitude: location.latitude, longitude: location.longitude }, { latitude: restaurant.coordinates.latitude, longitude: restaurant.coordinates.longitude }) * .00062137).toFixed(1) :
+                    null} Miles away
+                </Text>
+                <Text style={styles.second} onPress={() => {
+                    openMap({ latitude: restaurant.coordinates.latitude, longitude: restaurant.coordinates.longitude, query: restaurant.name })
+                }}>
+                    <MaterialIcons name="directions-car" size={26} color="black" />
+                </Text>
             </View>
             <View style={styles.rows}>
                 <Text style={styles.second}>{restaurant.hours[0].is_open_now ? 'Open' : 'Closed'}</Text>
-
                 <Text style={styles.second}>{convertTransactions(restaurant.transactions)}</Text>
             </View>
             <View style={styles.inforow}>
-                <Text style={styles.second}>{restaurant.location.display_address}</Text>
-                <Text style={styles.second}>{restaurant.display_phone}</Text>
+                <Text style={styles.third}>{restaurant.location.display_address}</Text>
+                <Text style={styles.third}>{restaurant.display_phone}</Text>
                 <Text style={styles.hyperlink} onPress={() => {
                     Linking.openURL(restaurant.url);
                 }}>
@@ -72,10 +113,14 @@ const RestaurantDetailsScreen = ({ navigation }) => {
                 </Text>
             </View>
             <View style={styles.reviewrow}>
-                <Text style={styles.reviewText}>{reviews[0].text}</Text>
-                <Text style={styles.reviewText}>{reviews[0].rating}</Text>
+                <Text style={styles.reviewText} onPress={() => {
+                    Linking.openURL(reviews[0].url)
+                }}>
+                    {reviews[0].text}
+                </Text>
+                <Text style={styles.reviewText}>{getStars(reviews[0].rating)}</Text>
                 <Text style={styles.reviewText}>{reviews[0].user.name}</Text>
-                <Image style={styles.pfp} source={{ uri: reviews[0].user.image_url }} />
+                <Image style={styles.pfp} source={{ uri: reviews[0].user.image_url }}/>
             </View>
         </View>
     )
@@ -87,8 +132,8 @@ const styles = StyleSheet.create({
         width: 300
     },
     pfp: {
-        height: 50,
-        width: 50,
+        height: 100,
+        width: 100,
     }, 
     view: {
         borderColor: 'black',
@@ -102,7 +147,8 @@ const styles = StyleSheet.create({
         height: 50,
         fontSize: 24,
         textAlign: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: 6
     },
     hyperlink: {
         borderColor: 'black',
@@ -119,7 +165,16 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         flex: 1,
         textAlign: 'center',
-        fontSize: 18
+        fontSize: 18,
+        paddingTop: 12
+    },
+    third: {
+        borderColor: 'black',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        flex: 1,
+        textAlign: 'center',
+        fontSize: 18,
     },
     reviewText: {
         flex: 1,
