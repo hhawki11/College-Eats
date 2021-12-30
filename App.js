@@ -37,7 +37,15 @@ const stackNavigator = createStackNavigator({
       DefaultTermSetting: DefaultTermSettingScreen,
       DefaultLimitSetting: DefaultLimitSettingScreen,
     })
-  })
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: 'black',
+      activeBackgroundColor: '#DBD6D2',
+      inactiveBackgroundColor: '#2F323A',
+    }
+  }
+  )
 },
 {
   headerMode: 'none',
